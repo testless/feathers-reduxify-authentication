@@ -43,7 +43,7 @@ export default (app, options = {}) => {
 
     [`SERVICES_AUTHENTICATION_AUTHENTICATE_${opts.FULFILLED}`]: (state, action) => {
       debug(`redux:SERVICES_AUTHENTICATION_AUTHENTICATE_${opts.FULFILLED}`, action);
-      const user = action.payload.data;
+      const user = action.payload[opts.user];
 
       if (state.ignorePendingAuth) {
         // A logout was dispatched between the authentication being started and completed
@@ -54,7 +54,7 @@ export default (app, options = {}) => {
           [opts.isError]: null,
           [opts.isLoading]: false,
           [opts.isSignedIn]: false,
-          [opts.data]: null,
+          [opts.user]: null,
           [opts.token]: null,
           ignorePendingAuth: false,
         };
@@ -69,7 +69,7 @@ export default (app, options = {}) => {
           [opts.isError]: new Error('User is not verified.'),
           [opts.isLoading]: false,
           [opts.isSignedIn]: false,
-          [opts.data]: null,
+          [opts.user]: null,
           [opts.token]: null,
           ignorePendingAuth: false,
         };
